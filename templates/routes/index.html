@@ -50,8 +50,8 @@
                 <ul class="collection with-header">
                     <li class="collection-header"><h6>{{ user.first_name }} {{ user.last_name }}, Bienvenid@ a BusApp</h6></li>
                     {% if user_preference %}
-                    <li class="collection-item"><strong>Tu ruta preferida: </strong> {{ user_preference.route.name }}</li>
-                    <li class="collection-item"><strong>Tu ubicación actual: </strong> {{ user_preference.station.name }}</li>
+                    <li class="collection-item"><div><strong>Tu ruta preferida: </strong>{{ user_preference.route.name }}<a href="{% url 'user_profile' %}" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                    <li class="collection-item"><div><strong>Tu ubicación actual: </strong>{{ user_preference.station.name }}<a href="{% url 'user_profile' %}" class="secondary-content"><i class="material-icons">send</i></a></div></li>
                     <li class="collection-item"><strong>Próximas paradas: </strong></li>
                     {% endif %}
                     {% for arrival_time in arrival_times %}

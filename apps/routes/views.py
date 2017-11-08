@@ -20,7 +20,20 @@ def index(request, template_name='routes/index.html'):
         if data['user_preference']:
             route = data['user_preference'].route
             station = data['user_preference'].station
-            data['arrival_times'] = ArrivalTime.objects.filter(bus__route=route, station=station, time__gte=data['time_now']).order_by('time')
+            if route and station:
+                if station.route == route:
+                    data['arrival_times'] = ArrivalTime.objects.filter(bus__route=route,
+                                                      station=station, time__gte=data['time_now']).order_by('time')
+                else:
+                    data['arrival_times'] = ArrivalTime.objects.filter(station=station,
+                                                                       time__gte=data['time_now']).order_by('time')
+            else:
+                if route:
+                    data['arrival_times'] = ArrivalTime.objects.filter(bus__route=route,
+                                                                       time__gte=data['time_now']).order_by('time')
+                if station:
+                    data['arrival_times'] = ArrivalTime.objects.filter(station=station,
+                                                                       time__gte=data['time_now']).order_by('time')
 
     return render(request, template_name, data)
 
