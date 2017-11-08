@@ -8,6 +8,8 @@
 	{% load static %}
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta charset="utf-8">
+
+    <link rel="icon" href="{% static 'images/bus.png' %}" type="image/gif" sizes="16x16">
 	<!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{% static 'materialize/css/materialize.min.css' %}" media="screen,projection">
@@ -64,74 +66,69 @@
 
 	<nav class="nav-extended #0d47a1 blue darken-4">
         <div class="nav-wrapper">
-
-            <!-- Top movil panel -->
-            <a href="" style="bottom: 0px; top: 5px;" class="center brand-logo waves-effect waves-teal hide-on-large-only">
-                Logo
-            </a>
-
-            <ul class="right"> <!-- hide-on-med-and-down -->
-                <a href="" style="bottom: 0px; top: 5px; height: 60px;">
+            <div class="container">
+                <!-- Top movil panel -->
+                <a href="" style="bottom: 0px; top: 5px;" class="center brand-logo waves-effect waves-teal hide-on-large-only">
                     BusApp
                 </a>
-            </ul>
 
-            <!-- control side nav cell -->
-            <a href="#" data-activates="mobile-menu" id="button_collapse" class="button"><i class="material-icons">menu</i></a>
+                <ul class="right"> <!-- hide-on-med-and-down -->
+                    <a href="/" style="bottom: 0px; top: 5px; height: 60px;">
+                        <img width="50" height="40" style="padding-top: 5px;" src="{% static 'images/bus.png' %}" alt="logo" class="responsive-img valign profile-image">
+                    </a>
+                </ul>
+
+                <!-- control side nav cell -->
+                <a href="#" data-activates="mobile-menu" id="button_collapse" class="button"><i class="material-icons">menu</i></a>
+            </div>
+
         </div>
     </nav>
 	<!-- Side nav cell -->
     <ul class="side-nav collapsible #0d47a1 blue darken-4" data-collapsible="accordion" id="mobile-menu">
         <li class="user-details green darken-1" style="padding-top: 15px; padding-left: 15px;">
             <div class="row">
-                <div class="col col s4 m4 l4">
-                </div>
-
-                <div class="col col s8 m8 l8">
-                    <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="" data-activates="profile-dropdown" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-bottom: 0px;">{{ 'Auth::user()->nombre' }}
+                {% if is_authenticated %}
+                <div class="col s12 m12 l12">
+                    <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="" data-activates="profile-dropdown" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-bottom: 0px;">
+                        {{ user }}
                         <i class="material-icons right" style="margin-left: 0px;">arrow_drop_down</i>
                     </a>
                     <ul id="profile-dropdown" class="dropdown-content">
-                        <li><a class="waves-effect waves-teal" href="">Mi cuenta</a>
+                        <li><a class="waves-effect waves-teal" href="{% url 'user_profile' %}">Mis preferencias</a>
                         </li>
                         <li class="divider" style="margin-top: 0px;"></li>
                         <li>
-                            <form id="logout-form" method="POST" style="display: none;">
-                            {% csrf_token %}
-                            </form>
-                            <a class="waves-effect waves-teal" href="" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">Salir</a>
+                            <a class="waves-effect waves-teal" href="{%  url 'user_logout' %}">Salir</a>
                         </li>
                     </ul>
                 </div>
+                {% else %}
+                <div class="text_color col s12 m12 l12">
+                    <a href="{%  url 'new_user' %}">Crear nueva cuenta</a>
+                </div>
+                {% endif %}
             </div>
         </li>
         <!-- Collapsive cell panel -->
         <li class="bold">
             <div class="collapsible-header">
-                <a class="waves-effect waves-teal text_color "><i class="material-icons prefix">arrow_drop_down</i>Organización</a>
+                <a class="waves-effect waves-teal text_color "><i class="material-icons prefix">arrow_drop_down</i>Rutas</a>
             </div>
             <div class="collapsible-body  #0d47a1 blue darken-4" style="padding-top: 0px;padding-bottom: 10px;">
                 <ul class="collapsible" data-collapsible="accordion" style="padding-left: 25px;">
-                    <li><a class="waves-effect waves-teal text_color" href="">Paises</a></li>
-                    <li><a class="waves-effect waves-teal text_color" href="">Estados</a></li>
-                    <li><a class="waves-effect waves-teal text_color" href="">Ciudades</a></li>
-                    <li><a class="waves-effect waves-teal text_color" href="">Sociedades</a></li>
-                    <li><a class="waves-effect waves-teal text_color" href="">Sedes</a></li>
+                    <li><a class="waves-effect waves-teal text_color" href="">En construcción</a></li>
                 </ul>
             </div>
         </li>
         
         <li class="bold">
             <div class="collapsible-header">
-                <a class="waves-effect waves-teal text_color"><i class="material-icons prefix">arrow_drop_down</i>Personas</a>
+                <a class="waves-effect waves-teal text_color"><i class="material-icons prefix">arrow_drop_down</i>Paradas</a>
             </div>
             <div class="collapsible-body  #0d47a1 blue darken-4" style="padding-top: 0px;padding-bottom: 10px;">
                 <ul class="collapsible" data-collapsible="accordion" style="padding-left: 25px;">
-                    <li><a class="waves-effect waves-teal text_color" href="">Roles</a></li>
-                    <li><a class="waves-effect waves-teal text_color" href="">Empleados</a></li>
-                    <li><a class="waves-effect waves-teal text_color" href="">Asociados</a></li>
-                    <li><a class="waves-effect waves-teal text_color" href="">Reclamantes</a></li>
+                    <li><a class="waves-effect waves-teal text_color" href="">En construcción</a></li>
                 </ul>
             </div>
         </li>

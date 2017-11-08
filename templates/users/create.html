@@ -1,0 +1,97 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12" style="height: 40px;"></div>
+            <div class="col s12 m1 l1"></div>
+            <div class="z-depth-4 col s12 m10 l10"  style="background-color: white;">
+                <div class="panel-heading">
+                    <h4 style="margin-bottom: 40px; text-align: center;">
+                        Nueva cuenta
+                    </h4>
+                </div>
+
+                <form class="col s12" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.media }}
+
+                    <div class="col s6 m6 l6">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                    <label style="color: red;" for="{{ form.first_name.id_for_label }}">{{ form.first_name.errors }}</label>
+                                {% else %}
+                                    <label for="{{ form.first_name.id_for_label }}">Nombre</label>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s6 m6 l6">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}
+                                    <label style="color: red;" for="{{ form.last_name.id_for_label }}">{{ form.last_name.errors }}</label>
+                                {% else %}
+                                    <label for="{{ form.last_name.id_for_label }}">Apellido</label>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12 m12 l12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <label style="color: red;" for="{{ form.email.id_for_label }}">{{ form.email.errors }}</label>
+                                {% else %}
+                                    <label for="{{ form.email.id_for_label }}">Email</label>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s6 m6 l6">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                {{ form.password1 }}
+                                {% if form.password1.errors %}
+                                    <label style="color: red;" for="{{ form.password1.id_for_label }}">{{ form.password1.errors }}</label>
+                                {% else %}
+                                    <label for="{{ form.password1.id_for_label }}">Contraseña</label>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s6 m6 l6">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                {{ form.password2 }}
+                                {% if form.password2.errors %}
+                                    <label style="color: red;" for="{{ form.password2.id_for_label }}">{{ form.password2.errors }}</label>
+                                {% else %}
+                                    <label for="{{ form.password2.id_for_label }}">Confirma la contraseña</label>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s3 m4 l4"></div>
+                        <div class="col s7 m4 l4">
+                            <button type="submit" class="btn btn-primary btn-block center">
+                                Enviar<i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                        <div class="col s2 m4 l4"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="col s12 m1 l1"></div>
+        </div>
+    </div>
+{% endblock %}

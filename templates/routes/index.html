@@ -1,1 +1,72 @@
 {% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        {% if not is_authenticated %}
+            <div class="row">
+                <div class="col s12 m12 l12" style="height: 40px;"></div>
+                <div class="z-depth-1 col s12 m12 l12"  style="background-color: white;">
+                    <form class="col s12" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.media }}
+
+                        <div class="col s12 m4 l4">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ login_form.username }}
+                                    {% if login_form.username.errors %}
+                                        <label style="color: red;" for="{{ login_form.username.id_for_label }}">{{ login_form.username.errors }}</label>
+                                    {% else %}
+                                        <label for="{{ login_form.username.id_for_label }}">Usuario</label>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m4 l4">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ login_form.password }}
+                                    {% if login_form.password.errors %}
+                                        <label style="color: red;" for="{{ login_form.password.id_for_label }}">{{ login_form.password.errors }}</label>
+                                    {% else %}
+                                        <label for="{{ login_form.password.id_for_label }}">Contraseña</label>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m4 l4">
+                            <button type="submit" class="btn btn-primary btn-block center">
+                                Ingresar<i class="material-icons right">send</i>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        {%  else %}
+            <ul class="row">
+                <ul class="collection with-header">
+                    <li class="collection-header"><h6>{{ user.first_name }} {{ user.last_name }}, Bienvenid@ a BusApp</h6></li>
+                    {% if user_preference %}
+                    <li class="collection-item"><strong>Tu ruta preferida: </strong> {{ user_preference.route.name }}</li>
+                    <li class="collection-item"><strong>Tu ubicación actual: </strong> {{ user_preference.station.name }}</li>
+                    <li class="collection-item"><strong>Próximas paradas: </strong></li>
+                    {% endif %}
+                    {% for arrival_time in arrival_times %}
+                    <li class="collection-item"><strong>{{ arrival_time.time }}: </strong> Bus {{ arrival_time.bus }} | {{ arrival_time.station }}</li>
+                    {% endfor %}
+                </ul>
+            </ul>
+        {%  endif %}
+
+        <ul class="row">
+            <ul class="collection with-header">
+                <li class="collection-header"><h4>Listado de rutas</h4></li>
+            </ul>
+        </ul>
+        <iframe style="width: 100%; height: 600px;" src="{% static 'index.html' %}#line/{{ user_preference.route.url }}"></iframe>
+
+    </div>
+{% endblock %}
